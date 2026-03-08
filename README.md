@@ -1,5 +1,5 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.blog/wp-content/uploads/2023/09/1200x630-Productivity-Unfurl-DARK-Logo.png?w=1024" />
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/TechAlumnus/arch-sense/blob/main/arch-sense.png?raw=true" />
 </div>
 
 ## Run Locally
