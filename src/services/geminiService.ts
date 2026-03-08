@@ -7,17 +7,23 @@ export async function getArchitectFeedback(
   nodes: SystemNode[],
   edges: SystemEdge[],
   history: Message[],
-  currentPhase: string
+  currentPhase: string,
+  scenario: string,
+  scalingChallenge: string
 ) {
   const model = "gemini-3.1-pro-preview";
   
-  const systemPrompt = `You are a Senior Architect Reviewer. Your goal is to validate a user's system design thinking for a "Scalable Notification System".
+  const systemPrompt = `You are a Senior Architect Reviewer. Your goal is to validate a user's system design thinking.
   
+  Problem Statement: ${scenario}
   Current Phase: ${currentPhase}
+  User's Scaling Goal: ${scalingChallenge}
   
   Design Graph:
   Nodes: ${JSON.stringify(nodes)}
   Edges: ${JSON.stringify(edges)}
+  
+  Note: Nodes of type 'COMMENT' represent user annotations. If a comment node is connected to another node via an edge, it means the comment specifically applies to that connected component.
   
   Principles:
   - Never provide a full "correct" architecture.
@@ -49,15 +55,22 @@ export async function getArchitectFeedback(
 export async function getFinalEvaluation(
   nodes: SystemNode[],
   edges: SystemEdge[],
-  history: Message[]
+  history: Message[],
+  scenario: string,
+  scalingChallenge: string
 ) {
   const model = "gemini-3.1-pro-preview";
   
-  const systemPrompt = `You are a Senior Architect Reviewer. Provide a final evaluation of the user's system design for a "Scalable Notification System".
+  const systemPrompt = `You are a Senior Architect Reviewer. Provide a final evaluation of the user's system design.
   
+  Problem Statement: ${scenario}
+  User's Scaling Goal: ${scalingChallenge}
+
   Design Graph:
   Nodes: ${JSON.stringify(nodes)}
   Edges: ${JSON.stringify(edges)}
+  
+  Note: Nodes of type 'COMMENT' represent user annotations. If a comment node is connected to another node via an edge, it means the comment specifically applies to that connected component.
   
   Evaluate across:
   1. Scalability (0-100)

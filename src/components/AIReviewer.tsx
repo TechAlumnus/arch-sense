@@ -8,9 +8,10 @@ interface AIReviewerProps {
   onSendMessage: (content: string) => void;
   isTyping: boolean;
   stressEvent?: { title: string; description: string };
+  isObserving?: boolean;
 }
 
-const AIReviewer: React.FC<AIReviewerProps> = ({ messages, onSendMessage, isTyping, stressEvent }) => {
+const AIReviewer: React.FC<AIReviewerProps> = ({ messages, onSendMessage, isTyping, stressEvent, isObserving }) => {
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -106,19 +107,20 @@ const AIReviewer: React.FC<AIReviewerProps> = ({ messages, onSendMessage, isTypi
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Justify your decision..."
-            className="w-full bg-[#151619] border border-[#2A2D32] rounded-lg py-3 px-4 text-xs text-white font-mono focus:outline-none focus:border-[#00FF00] transition-colors pr-12"
+            placeholder={isObserving ? "Architect is observing your design..." : "Justify your decision..."}
+            disabled={isObserving}
+            className="w-full bg-[#151619] border border-[#2A2D32] rounded-lg py-3 px-4 text-xs text-white font-mono focus:outline-none focus:border-[#00FF00] transition-colors pr-12 disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <button
             type="submit"
-            disabled={!input.trim() || isTyping}
+            disabled={!input.trim() || isTyping || isObserving}
             className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-[#8E9299] hover:text-[#00FF00] disabled:opacity-50 transition-colors"
           >
             <Send size={16} />
           </button>
         </div>
         <p className="mt-2 text-[10px] text-[#4A4D52] font-mono uppercase tracking-widest text-center">
-          Press Enter to transmit
+          {isObserving ? "Chat disabled during observation" : "Press Enter to transmit"}
         </p>
       </form>
     </div>

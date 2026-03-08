@@ -1,5 +1,7 @@
 export enum ComponentType {
   LOAD_BALANCER = 'LOAD_BALANCER',
+  L4_LOAD_BALANCER = 'L4_LOAD_BALANCER',
+  L7_LOAD_BALANCER = 'L7_LOAD_BALANCER',
   API_GATEWAY = 'API_GATEWAY',
   MICROSERVICE = 'MICROSERVICE',
   DATABASE = 'DATABASE',
@@ -7,6 +9,7 @@ export enum ComponentType {
   MESSAGE_QUEUE = 'MESSAGE_QUEUE',
   CDN = 'CDN',
   EXTERNAL_SERVICE = 'EXTERNAL_SERVICE',
+  COMMENT = 'COMMENT',
 }
 
 export interface SystemNode {
@@ -26,7 +29,7 @@ export interface SystemEdge {
 }
 
 export interface SimulationState {
-  phase: 'DESIGN' | 'STRESS' | 'EVALUATION';
+  phase: 'PROBLEM_STATEMENT' | 'DESIGN' | 'STRESS' | 'EVALUATION';
   scenario: string;
   stressEvents: StressEvent[];
   currentStressIndex: number;
